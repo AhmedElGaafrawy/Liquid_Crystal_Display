@@ -5,12 +5,13 @@
  *  Version    : 1.0.1
  *  Author     : Ahmed El-Gaafarwy
  */
-#include "../../LIBRARY/stdTypes.h"
-#include "../../LIBRARY/BIT_MATH.h"
-#include "../../LIBRARY/errorStates.h"
+#include "../LIBRARY/stdTypes.h"
+#include "../LIBRARY/BIT_MATH.h"
+#include "../LIBRARY/errorStates.h"
+//#include "../LIBRARY/AVR_REG.h"
 
 
-#include "../../MCAL/DIO/DIO_int.h"
+#include "../MCAL/DIO_int.h"
 
 
 #include "LCD_config.h"
@@ -227,7 +228,7 @@ ERROR_STATES LCD_enuSendString (char * Copy_Pu8String)
 	while(*Copy_Pu8String)
 	{
 		LCD_enuSendChar(*Copy_Pu8String);
-		if (!(*(Copy_Pu8String+1))) error_enuState =ES_OK;
+		if (!(*(Copy_Pu8String+LCD_ONE))) {error_enuState =ES_OK;}
 		Copy_Pu8String++;
 	}
 	return error_enuState;
@@ -274,24 +275,35 @@ ERROR_STATES LCD_enuGoToPosition (u8 Copy_u8Row , u8 Copy_u8Col)
 /** Functionality   : Writing Special Patterns to LCD within Run time.      **/
 /*****************************************************************************/
 /*****************************************************************************/
-ERROR_STATES LCD_enuSendExtraChar (u8 Copy_u8RowPosition , u8 Copy_u8ColPosition , u8 *Copy_u8PExtraChar )
+ERROR_STATES LCD_enuSendExtraChar (u8 Copy_u8RowPosition , u8 Copy_u8ColPosition , u8 Copy_u8StartCharNum , u8 Copy_u8EndCharNum , u8 Copy_u8WritingPosition ,u8 *Copy_u8PExtraChar )
 {
 	ERROR_STATES error_enuState = ES_NOT_OK;
 
 	u8 Local_u8Iteration;
 
 	LCD_enuSendCommand(GO_TO_CGRAM);
-	for (Local_u8Iteration= LCD_ZERO; Local_u8Iteration <LCD_MAX_CGRAM ;Local_u8Iteration++)
+	for (Local_u8Iteration= Copy_u8StartCharNum * LCD_EIGHT; Local_u8Iteration <Copy_u8EndCharNum * LCD_EIGHT ;Local_u8Iteration++)
 	{
 		LCD_enuSendChar(Copy_u8PExtraChar[Local_u8Iteration]);
 	}
 
-	LCD_enuSendCommand(FORCE_CURSOR_START_FIRST_LINE);
 	LCD_enuGoToPosition(Copy_u8RowPosition, Copy_u8ColPosition);
+	LCD_enuSendCommand(Copy_u8WritingPosition);
 
-	for (Local_u8Iteration= LCD_ZERO; Local_u8Iteration <=LCD_SEVEN ;Local_u8Iteration++)
+	if (Copy_u8WritingPosition == SHIFT_DISPLAY_TO_LEFT)
 	{
-		LCD_enuSendChar(Local_u8Iteration);
+		for (Local_u8Iteration= Copy_u8EndCharNum; Local_u8Iteration > Copy_u8StartCharNum ;Local_u8Iteration--)
+		{
+			LCD_enuSendChar(Local_u8Iteration - LCD_ONE);
+		}
+	}
+
+	else
+	{
+		for (Local_u8Iteration= Copy_u8StartCharNum; Local_u8Iteration < Copy_u8EndCharNum ;Local_u8Iteration++)
+		{
+			LCD_enuSendChar(Local_u8Iteration);
+		}
 	}
 	error_enuState = ES_OK;
 
@@ -491,15 +503,15 @@ ERROR_STATES LCD_enuLatch (u8 Copy_u8Data)
 /*****************************************************************************/
 u32 POWER_u32PowerNumbers(u32 Copy_u32Number , u8 Copy_u8Power)
 {
-	u32 Local_u16Result = LCD_ONE ;
+	u32 Local_u32Result = LCD_ONE ;
 	u8 Local_u8Iteration ;
 
 	for (Local_u8Iteration = LCD_ONE ; Local_u8Iteration <= Copy_u8Power ; Local_u8Iteration++)
 	{
-		Local_u16Result *=Copy_u32Number ;
+		Local_u32Result *=Copy_u32Number ;
 	}
 
-	return Local_u16Result ;
+	return Local_u32Result ;
 }
 /*****************************************************************************/
 /*****************************************************************************/

@@ -108,7 +108,7 @@ ERROR_STATES LCD_enuGoToPosition (u8 Copy_u8Row , u8 Copy_u8Col);
 /** Functionality   : Writing Special Patterns to LCD within Run time.      **/
 /*****************************************************************************/
 /*****************************************************************************/
-ERROR_STATES LCD_enuSendExtraChar (u8 Copy_u8RowPosition , u8 Copy_u8ColPosition , u8 *Copy_u8PExtraChar );
+ERROR_STATES LCD_enuSendExtraChar (u8 Copy_u8RowPosition , u8 Copy_u8ColPosition , u8 Copy_u8StartCharNum , u8 Copy_u8EndCharNum , u8 Copy_u8WritingPosition ,u8 *Copy_u8PExtraChar );
 /*****************************************************************************/
 /*****************************************************************************/
 /*****************************************************************************/

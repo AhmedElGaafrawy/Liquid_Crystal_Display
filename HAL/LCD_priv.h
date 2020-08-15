@@ -97,6 +97,7 @@ ERROR_STATES LCD_enuGoToPosition (u8 Copy_u8Row , u8 Copy_u8Col);
 #define 	LCD_FIVE		5
 #define 	LCD_SEX			6
 #define 	LCD_SEVEN		7
+#define 	LCD_EIGHT		8
 #define 	LCD_TEN			10
 #define		LCD_MAX_CGRAM	64
 /*****************************************************************************/
