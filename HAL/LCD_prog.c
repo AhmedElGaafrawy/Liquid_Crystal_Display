@@ -397,7 +397,7 @@ ERROR_STATES LCD_enuLatch (u8 Copy_u8Data)
 	if (Copy_u8Data == FOUR_BIT_MODE)
 	{
 		DIO_enuSetPinValue(D7_PORT , D7_PIN , ((Copy_u8Data >> LCD_SEVEN) & LCD_ONE));
-		DIO_enuSetPinValue(D6_PORT , D6_PIN , ((Copy_u8Data >> LCD_SEX)   & LCD_ONE));
+		DIO_enuSetPinValue(D6_PORT , D6_PIN , ((Copy_u8Data >> LCD_SIX)   & LCD_ONE));
 		DIO_enuSetPinValue(D5_PORT , D5_PIN , ((Copy_u8Data >> LCD_FIVE)  & LCD_ONE));
 		DIO_enuSetPinValue(D4_PORT , D4_PIN , ((Copy_u8Data >> LCD_FOUR)  & LCD_ONE));
 
@@ -421,7 +421,7 @@ ERROR_STATES LCD_enuLatch (u8 Copy_u8Data)
 	}
 
 	DIO_enuSetPinValue(D7_PORT , D7_PIN , ((Copy_u8Data >> LCD_SEVEN) & LCD_ONE));
-	DIO_enuSetPinValue(D6_PORT , D6_PIN , ((Copy_u8Data >> LCD_SEX)   & LCD_ONE));
+	DIO_enuSetPinValue(D6_PORT , D6_PIN , ((Copy_u8Data >> LCD_SIX)   & LCD_ONE));
 	DIO_enuSetPinValue(D5_PORT , D5_PIN , ((Copy_u8Data >> LCD_FIVE)  & LCD_ONE));
 	DIO_enuSetPinValue(D4_PORT , D4_PIN , ((Copy_u8Data >> LCD_FOUR)  & LCD_ONE));
 
